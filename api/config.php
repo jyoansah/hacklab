@@ -113,11 +113,11 @@ function OpenConnection()
         $sql = "CREATE TABLE IF NOT EXISTS Transactions
                     (
                       id int NOT NULL AUTO_INCREMENT,
-                      tdate datetime(50)  NULL,
+                      tdate TIMESTAMP  NULL,
                       amount varchar(50)  NULL,
                       user_id int NULL,
                       PRIMARY KEY (id),
-                      FOREIGN KEY (user_id) REFERENCES User(id)
+                      FOREIGN KEY (user_id) REFERENCES Users(id)
                     )";
         $conn->exec($sql);
 
