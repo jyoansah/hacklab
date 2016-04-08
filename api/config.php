@@ -72,20 +72,6 @@ function OpenConnection()
     $dbname = DATABASE;
     $serverName = "tcp:$dbhost,$dbport";
 
-//        try {
-//            $connectionOptions = array("Database"=>"$dbname", "Uid"=>"$dbuser", "PWD"=>"$dbpass");
-//            $conn = sqlsrv_connect($serverName, $connectionOptions);
-//            if ($conn == false) {
-//                echo "Connection failed";
-//                die(FormatErrors(sqlsrv_errors()));
-//            }else{
-//                return $conn;
-//            }
-//        } catch(Exception $e){
-//            echo(" Connection Open Error!");
-//            $error = $e->getMessage();
-//        }
-
     try {
         $conn = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
 
@@ -95,14 +81,14 @@ function OpenConnection()
         //Create Tables
         $sql = "CREATE DATABASE IF NOT EXISTS ".$dbname;
         $conn->exec($sql);
-
         
 
         //Create Tables
         $sql = "CREATE TABLE IF NOT EXISTS  Users
                     (
-                        id int NOT NULL AUTO_INCREMENT,
+                        id int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
                         username varchar(50)  NULL,
+                        email varchar(50)  NULL,
                         password varchar(50)  NOT NULL,
                         PRIMARY KEY (id)
                     )";
@@ -112,10 +98,10 @@ function OpenConnection()
         //Create Database
         $sql = "CREATE TABLE IF NOT EXISTS Transactions
                     (
-                      id int NOT NULL AUTO_INCREMENT,
+                      id int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
                       tdate TIMESTAMP  NULL,
                       amount varchar(50)  NULL,
-                      user_id int NULL,
+                      user_id int UNSIGNED NULL,
                       PRIMARY KEY (id),
                       FOREIGN KEY (user_id) REFERENCES Users(id)
                     )";

@@ -4,7 +4,14 @@
     include_once 'api/api.php';
     global $conn, $api;
     session_start();
+
     $conn = openConnection();
+
+    //addUser($conn, new User("admin", "admin@admin.com", "pass"));
+
+    $user = getUserWithUsername($conn, "admin");
+    echo $user->getUsername();
+    
 ?>
 
 <!DOCTYPE html>

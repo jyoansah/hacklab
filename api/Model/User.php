@@ -6,21 +6,26 @@ class User {
     public $username;
     public $password;
 
-    public function newUser($id, $username, $password) {
+    public function newUser($id, $username, $email, $password) {
         $this->id = $id;
         $this->username = $username;
+        $this->email = $email;
         $this->password = $password;
     }
 
-    public function __construct($username, $password){
+    public function __construct($username, $email, $password){
         $this->username = $username;
+        $this->email = $email;
         $this->password = $password;
     }
 
 
     function __toString()
     {
-        return "UserId: ".$this->getId()." Username: ".$this->getUsername()." Password: ".$this->getpassword()."<br>";
+        return  "UserId: ".$this->getId().
+                " Username: ".$this->getUsername().
+                " Email: ".$this->getEmail().
+                " Password: ".$this->getpassword()."<br>";
     }
 
     /**
@@ -53,6 +58,22 @@ class User {
     public function setUsername($username)
     {
         $this->username = $username;
+    }
+
+        /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     /**

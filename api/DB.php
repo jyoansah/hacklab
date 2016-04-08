@@ -44,17 +44,15 @@ function userGetter($conn, $condition){
         $conn = OpenConnection();
 
         if(empty($condition)) {
-            $sql = "SELECT id, username, password FROM Users";
+            $sql = "SELECT id, username, email, password FROM Users";
         }
         else{
-            $sql = "SELECT id, username, password FROM Users WHERE ".$condition;
+            $sql = "SELECT id, username, email, password FROM Users WHERE ".$condition;
 
         }
 
         foreach ($conn->query($sql) as $row) {
-                $user = new User($row["username"]);
-                $user->setPosition($row["password"]);
-                $user->setId($row["id"]);
+                $user = new User($row["username"], $row["email"], $row["password"]);
                 $users[] = $user;
         }
 
@@ -72,29 +70,38 @@ function userGetter($conn, $condition){
     }
 }
 
-function getUser($conn, $id){
+function getUserWithID($conn, $id){
     $cond = "id =$id";
     $users = userGetter($conn, $cond);
 
     if (empty($users)){
         return "not found";
     }
-    return $users;
+    return $users[0];
+}
+
+function getUserWithUsername($conn, $username){
+    $cond = "username = \"$username\"";
+    $users = userGetter($conn, $cond);
+
+    if (empty($users)){
+        return "not found";
+    }
+    return $users[0];
 }
 
 function addUser($conn, $user){
 
     try{
         $username = $user->getUsername();
+        $email = $user->getEmail();
         $password = $user->getPassword();
 
-        $sql = "INSERT INTO Users (username, password)
-                VALUES ('$username','$password')";
+        $sql = "INSERT INTO Users (username, email, password)
+                VALUES ('$username','$email','$password')";
        
         $conn = OpenConnection();
         $conn->exec($sql);
-
-        $conn = null;
 
         $new_id = $conn->lastInsertId();
 
@@ -111,18 +118,6 @@ function addUser($conn, $user){
         echo $sql . "<br>" . $e->getMessage();
     }
 }
-
-// function addUser($conn, $user){
-//     $array = [
-//         'transaction_id' => $user->gettransactionId(),
-//         "transaction" => gettransaction($conn, $user->gettransactionId())->getName(),
-//         "position" => addUserDB($conn,$user),
-//         "serving" => getfirstInLine($conn, $user->gettransactionId())
-//     ];
-//     return $array;
-// }
-
-
 
 
 function transactionGetter($conn, $condition){

@@ -3,7 +3,7 @@
     include_once '../api/api.php';
     global $conn, $api;
     session_start();
-    $conn = openConnection();
+
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" type="text/css">
 
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="../css/animate.min.css" type="text/css">
@@ -41,7 +41,31 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
- <script src="../js/log/js"></script>
+ 
+
+     <script src="../js/jquery.js"></script>
+
+	 <script>
+	 	$(function() {
+
+	    $('#login-form-link').click(function(e) {
+			$("#login-form").delay(100).fadeIn(100);
+	 		$("#register-form").fadeOut(100);
+			$('#register-form-link').removeClass('active');
+			$(this).addClass('active');
+			e.preventDefault();
+		});
+		$('#register-form-link').click(function(e) {
+			$("#register-form").delay(100).fadeIn(100);
+	 		$("#login-form").fadeOut(100);
+			$('#login-form-link').removeClass('active');
+			$(this).addClass('active');
+			e.preventDefault();
+		});
+
+		});
+
+	 </script>
 </head>
 
 <body id="page-top">
@@ -91,7 +115,8 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" action="http://phpoll.com/login/process" method="post" role="form" style="display: block;">
+
+								<form id="login-form" action="login.php" method="post" role="form" style="display: block;">
 									<div class="form-group">
 										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
 									</div>
@@ -119,7 +144,8 @@
 										</div>
 									</div>
 								</form>
-								<form id="register-form" action="http://phpoll.com/register/process" method="post" role="form" style="display: none;">
+
+								<form id="register-form" action="register.php" method="post" role="form" style="display: none;">
 									<div class="form-group">
 										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
 									</div>
@@ -140,6 +166,7 @@
 										</div>
 									</div>
 								</form>
+								
 							</div>
 						</div>
 					</div>
@@ -147,5 +174,7 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- jQuery -->
 
 </body>
