@@ -87,8 +87,8 @@ function OpenConnection()
         $sql = "CREATE TABLE IF NOT EXISTS  Users
                     (
                         id int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
-                        username varchar(50)  NULL,
-                        email varchar(50)  NULL,
+                        username varchar(50) UNIQUE NULL,
+                        email varchar(50) UNIQUE NULL,
                         password varchar(50)  NOT NULL,
                         PRIMARY KEY (id)
                     )";
