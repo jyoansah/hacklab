@@ -545,22 +545,27 @@ body {
 
 
 /*
- * Placeholder dashboard ideas
+ *  dashboard ideas
  */
 
-.placeholders {
-  margin-bottom: 30px;
+.amount {
+  margin: 2.5%;
+  width: 40%;
+  height: 100px;
   text-align: center;
+  vertical-align: middle;
+  border-radius: 10px;
+  border: 5px solid #ee4b28;
 }
-.placeholders h4 {
+.amount h4 {
   margin-bottom: 0;
 }
-.placeholder {
+.amount {
   margin-bottom: 20px;
 }
-.placeholder img {
+.amount img {
   display: inline-block;
-  border-radius: 50%;
+
 }
 
 
