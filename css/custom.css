@@ -795,3 +795,19 @@ transition: all 0.1s linear;
     border-color: #f05f40;
 }
 
+
+.paybox{
+    border-radius: 5px;
+}
+
+.paybox input{
+    height: 75px;
+    width: 90%;
+    font-size: 30px;
+}
+
+.paybtn{
+    padding: 20px;
+    height: 75px;
+    width: 300px;
+}

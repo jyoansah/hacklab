@@ -10,8 +10,8 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Make a Payment</a></li>
-            <li><a href="#">Apply for a Loan</a></li>
+            <li><a href="transaction.php">Make a Payment</a></li>
+            <li><a href="loan.php">Apply for a Loan</a></li>
             <!-- <li><a href="#">Loan</a></li> -->
           </ul>
         </div>
@@ -20,8 +20,8 @@
 
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-6 amount">
-              <span class="text-muted">GH₵</span>
-              <h1><?php echo $user->getBalance();?></h1>
+              <span class="text-muted">You currently owe:</span>
+              <h1>GH₵ <?php echo $user->getBalance();?></h1>
             </div>
             <div class="col-xs-3 col-sm-3 dashbtn">
               <a href="#" role="button" class="btn btn-primary">Pay Money</a>
