@@ -7,4 +7,5 @@ require_once 'definition.php';
 require_once 'DB.php';
 require_once 'Model/User.php';
 require_once 'Model/Transaction.php';
+require_once 'Model/Loans.php';
 

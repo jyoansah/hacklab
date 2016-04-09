@@ -144,8 +144,8 @@ transition: all .35s;
 
 @media(min-width:768px) {
 .navbar-default {
-border-color: rgba(255,255,255,.3);
-    background-color: #777777;
+    border-color: rgba(255,255,255,.3);
+    background-color: #f05f40;
 }
 
 
@@ -244,7 +244,11 @@ header .header-content .header-content-inner p {
     margin-bottom: 50px;
     font-size: 16px;
     font-weight: 300;
-color: rgba(255,255,255,.7);
+    color: rgba(255,255,255,.7);
+}
+
+#title{
+    font-size: 100px;
 }
 
 

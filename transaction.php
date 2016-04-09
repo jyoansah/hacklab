@@ -1,8 +1,7 @@
 <?php
 
     include('header.php');
-    $_SESSION["login_user"]= "1";
-
+    
 ?>
 
     <div class="dashboard container-fluid">
@@ -21,12 +20,12 @@
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-6 amount">
               <span class="text-muted">You currently owe:</span>
-              <h1>GH₵ <?php echo $user->getBalance();?></h1>
+              <h1>GH₵ <?php echo number_format($user->getBalance(), 2, '.', '');?></h1>
             </div>
-            <div class="col-xs-6 col-sm-6 amount">
+            <!-- <div class="col-xs-6 col-sm-6 amount">
               <span class="text-muted">Your slidepay balance:</span>
-              <h1>GH₵ <?php echo $user->getBalance();?></h1>
-            </div>
+              <h1>GH₵ <?php echo number_format($user->getBalance(), 2, '.', '');;?></h1>
+            </div> -->
           </div>
 
           <br>
@@ -42,8 +41,9 @@
                     <input type="text" name="amount" id="amount" tabindex="1" class="form-control" placeholder=" 0.00" value="">
                   </div>
               <div class="form-group col-xs-4 col-sm-4 paybtn">
-                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                <input type="submit" name="login-submit" id="transaction-submit" tabindex="4" class="form-control btn btn-login" value="Pay Now">
               </div>
+              <input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION["login_user"]?>">
             </form>
           </div>
         </div>

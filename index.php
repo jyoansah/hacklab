@@ -6,9 +6,10 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1>BLANK PAY  easy access ,reliable,faster</h1>
+                <h1 id="title">BLANK PAY</h1>
+                <h2>Easy, Reliable, Faster</h2>
                 <hr>
-                <p>Start BLANK PAY Which Aid to access your banking services to pay and get loans with ease,reliable and very Quick</p>
+                <p>Start using BLANK PAY and gain easy access to otherwise hard-to-get banking services; claim and pay off loans with ease and speed!</p>
                 <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
             </div>
         </div>
@@ -20,8 +21,12 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">We've got what you need!</h2>
                     <hr class="light">
-                    <p class="text-faded">This microfinance site helps you to get loans with just a click, free to register online, and easy to use. No strings attached!</p>
-                    <a href="#" class="btn btn-default btn-xl">Get Started!</a>
+                    <p class="text-faded">This micro-finance site helps you to get loans with just a click, free to register online, and easy to use. No strings attached!</p>
+                    <?php if(isset($_SESSION['login_user'])){?>
+                        <a href="dashboard.php" class="btn btn-default btn-xl">Go to your Dashboard!</a>
+                    <?php } else { ?>
+                        <a href="login.php" class="btn btn-default btn-xl">Get Started!</a>
+                    <?php } ?>
                 </div>
             </div>
         </div>

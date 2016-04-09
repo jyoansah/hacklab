@@ -227,6 +227,107 @@ function addTransaction($conn, $transaction){
 
 }
 
+
+
+function loanGetter($conn, $condition){
+
+    try {
+
+        $conn = OpenConnection();
+
+        if (empty($condition)) {
+            $sql = "SELECT id, sdate, amount, user_id, status FROM loans";
+        } else {
+            $sql = "SELECT id, sdate, amount, user_id, status FROM loans WHERE $condition";
+        }
+
+
+        foreach($conn->query($sql) as $row) {
+            $loan = new loan($row["sdate"], $row["user_id"], $row["amount"], $row["status"]);
+            $loan->setId($row["id"]);
+            $loans[] = $loan;
+        }
+
+        $conn = null;
+
+        if (!empty($loans)) {
+            return $loans;
+        } else {
+            return null;
+        }
+
+    }
+    catch(PDOException $e)
+    {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+}
+
+function getloanWithID($conn, $id){
+    
+    $cond = "id = \"$id\"";
+    $loans = loanGetter($conn, $cond);
+
+    if (empty($loans)){
+        return null;
+    }else{
+        return $loans[0];
+    }
+}
+
+function getloans($conn){
+    $loans = loanGetter($conn, null);
+    if (empty($loans)){
+        return "No loans available";
+    }
+    return $loans;
+}
+
+function getUserloans($conn, $user_id){
+
+    $cond = "user_id = \"$user_id\"";
+    $loans = loanGetter($conn, $cond);
+
+    if (empty($loans)){
+        return null;
+    }else{
+        return $loans;
+    }
+}
+
+function addloan($conn, $loan){
+
+    $user_id = $loan->getUserID();
+    $sdate = $loan->getSDate();
+    $amount = $loan->getAmount();
+    $status = $loan->getStatus();
+
+    try {
+
+        $sql = "INSERT INTO loans (sdate, amount, user_id, status)
+                VALUES ('$sdate','$amount','$user_id', '$status')";
+        //Insert query
+        $conn = OpenConnection();
+        $conn->exec($sql);
+
+        $new_id = $conn->lastInsertId();
+
+        $conn = null;
+
+        if (empty($new_id)){
+            return null;
+        }else{
+            return $new_id;
+        }
+
+    }
+    catch(PDOException $e)
+    {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+}
+
 //Encode result in json format
 function sanitizeResult($result, $code = 200) {
     if (count($result) > 0) {
@@ -262,78 +363,3 @@ function GeSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDef
     }
     return $theValue_;
 }
-
-
-
-
-
-
-
-
-// function getfirstInLine($conn, $transaction_id){
-
-//     try{
-
-//         $conn = OpenConnection();
-
-//         $sql = "SELECT position FROM Users WHERE transaction_id=".$transaction_id." ORDER BY position ASC LIMIT 1";
-
-//         foreach ($conn->query($sql) as $row) {
-//             $result = $row["position"];
-//         }
-
-//         $conn = null;
-
-//         if (!empty($result)) {
-//             return  $result;
-//         }else{
-//             return null;
-//         }
-//     }
-//     catch(PDOException $e){
-//         echo $sql . "<br>" . $e->getMessage();
-//     }
-// }
-
-// function getLastInLine($conn, $transaction_id){
-//     try{
-
-//         $conn = OpenConnection();
-
-//         $sql = "SELECT position FROM Users WHERE transaction_id=".$transaction_id." ORDER BY position DESC LIMIT 1";
-
-//         foreach ($conn->query($sql) as $row) {
-//             $result = $row["position"];
-//         }
-
-//         $conn = null;
-
-//         if (!empty($result)) {
-//             return  $result;
-//         }else{
-//             return null;
-//         }
-//     }
-//     catch(PDOException $e){
-//         echo $sql . "<br>" . $e->getMessage();
-//     }
-// }
-
-// function detransactionUser($conn, $transaction_id){
-//     try{
-
-//         $conn = OpenConnection();
-
-//         $sql = "DELETE FROM Users where position = (Select * from
-//               (SELECT position FROM Users WHERE transaction_id=".$transaction_id." ORDER BY position ASC LIMIT 1) as q)";
-
-//         $conn->query($sql);
-
-//         $conn = null;
-
-//     }
-//     catch(PDOException $e){
-//         echo $sql . "<br>" . $e->getMessage();
-//     }
-// }
-

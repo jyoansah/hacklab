@@ -1,7 +1,6 @@
 <?php
 
     include('header.php');
-    $_SESSION["login_user"]= "1";
 
 ?>
 
@@ -21,17 +20,17 @@
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-6 amount">
               <span class="text-muted">You currently owe:</span>
-              <h1>GH₵ <?php echo $user->getBalance();?></h1>
+              <h1>GH₵ <?php echo number_format($user->getBalance(), 2, '.', '');?></h1>
             </div>
             <div class="col-xs-3 col-sm-3 dashbtn">
-              <a href="#" role="button" class="btn btn-primary">Pay Money</a>
+              <a href="transaction.php" role="button" class="btn btn-primary">Pay Money</a>
             </div>
             <div class="col-xs-3 col-sm-3 dashbtn">
-              <a href="#" role="button" class="btn btn-primary">Apply for Loan</a>
+              <a href="loan.php" role="button" class="btn btn-primary">Apply for Loan</a>
             </div>
           </div>
 
-          <h2 class="sub-header">Transactions</h2>
+          <h2 class="sub-header">Recent Transactions</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -57,6 +56,37 @@
               </tbody>
             </table>
           </div>
+
+          <h2 class="sub-header">Recent Loans</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Date Submitted</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php
+
+                $loans = getUserLoans($conn, $user->getId());
+                foreach($loans as $l){
+
+              ?>
+                <tr>
+                  <td><?php echo $l->getId();?></td>
+                  <td><?php echo $l->getSDate();?></td>
+                  <td><?php echo $l->getAmount();?></td>
+                  <td><?php echo $l->getStatus();?></td>
+
+                </tr>
+              <?php } ?>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
     </div>

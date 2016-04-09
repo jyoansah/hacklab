@@ -19,14 +19,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blank Pay</title>
+    <title>Blank Pay | Access Easy loans</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
 
     <!-- Plugin CSS -->
@@ -35,37 +35,16 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css" type="text/css">
 
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <script>
-        $(function() {
-
-        $('#login-form-link').click(function(e) {
-            $("#login-form").delay(100).fadeIn(100);
-            $("#register-form").fadeOut(100);
-            $('#register-form-link').removeClass('active');
-            $(this).addClass('active');
-            e.preventDefault();
-        });
-        $('#register-form-link').click(function(e) {
-            $("#register-form").delay(100).fadeIn(100);
-            $("#login-form").fadeOut(100);
-            $('#login-form-link').removeClass('active');
-            $(this).addClass('active');
-            e.preventDefault();
-        });
-
-        });
-
-     </script>
 
 </head>
 
@@ -87,25 +66,24 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <?php if(isset($_SESSION['login_user'])){
-
                             $user = getUserWithID($conn, isset($_SESSION['login_user']));
-
                         ?>
                         <li>
                             <a class="page-scroll">Welcome, <?php echo $user->getUsername(); ?></a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="auth/logout.php">Logout</a>
                         </li>
 
                     <?php } else { ?>
 
                         <li>
-                            <a class="page-scroll" href="login.php">Sign In/Out</a>
+                            <a class="page-scroll" href="login.php">Sign In/Up</a>
                         </li>
 
                     <?php } ?>
 
-                    <li>
-                        <a class="page-scroll" href="auth/about.php">About</a>
-                    </li>
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

@@ -78,7 +78,7 @@ function OpenConnection()
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        //Create Tables
+        //Create Database
         $sql = "CREATE DATABASE IF NOT EXISTS ".$dbname;
         $conn->exec($sql);
         
@@ -96,13 +96,25 @@ function OpenConnection()
         $conn->exec($sql);
 
 
-        //Create Database
         $sql = "CREATE TABLE IF NOT EXISTS Transactions
                     (
                       id int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
                       tdate TIMESTAMP NOT NULL,
                       amount Decimal(19,4) NOT NULL,
                       user_id int UNSIGNED NOT NULL,
+                      PRIMARY KEY (id),
+                      FOREIGN KEY (user_id) REFERENCES Users(id)
+                    )";
+        $conn->exec($sql);
+
+        //Create Database
+        $sql = "CREATE TABLE IF NOT EXISTS Loans
+                    (
+                      id int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
+                      sdate TIMESTAMP NOT NULL,
+                      amount Decimal(19,4) NOT NULL,
+                      user_id int UNSIGNED NOT NULL,
+                      status varchar(50) NOT NULL,
                       PRIMARY KEY (id),
                       FOREIGN KEY (user_id) REFERENCES Users(id)
                     )";
