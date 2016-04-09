@@ -1,0 +1,29 @@
+diff a/api/DB.php b/api/DB.php	(rejected hunks)
+@@ -103,15 +103,21 @@
+          $conn = OpenConnection();
+          $conn->exec($sql);
+  
+++<<<<<<< Updated upstream
+ +        $new_id = $conn->lastInsertId();
+- 
+++=======
+          $conn = null;
+  
+-         if (empty($new_id)){
+-             return null;
+-         }else{
+-             return $new_id;
+-         }
++         // $new_id = $conn->insert_id;
+++>>>>>>> Stashed changes
++ 
++         // $conn = null;
++ 
++         // if (empty($new_id)){
++         //     return null;
++         // }else{
++         //     return $new_id;
++         // }
+      }
+      catch(PDOException $e)
+      {
