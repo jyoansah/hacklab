@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
     header("access-control-allow-origin: *");
     include_once 'api/api.php';
@@ -25,7 +24,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>Blank Pay</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -37,7 +36,7 @@
 
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="css/animate.min.css" type="text/css">
-
+ 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
 
@@ -62,14 +61,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Blank</a>
+                <a class="navbar-brand page-scroll" href="#page-top">Blankpay</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#about">About</a>
+                        <a class="page-scroll" href="auth/log.php">Sign In/Out</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="auth/about.php">About</a>
                     </li>
                 </ul>
             </div>
@@ -81,9 +83,9 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1>Your Favorite Source of Free Bootstrap Themes</h1>
+                <h1>BLANK PAY  easy access ,reliable,faster</h1>
                 <hr>
-                <p>Start Bootstrap can help you build better websites using the Bootstrap CSS framework! Just download your template and start going, no strings attached!</p>
+                <p>Start BLANK PAY Which Aid to access your banking services to pay and get loans with ease,reliable and very Quick</p>
                 <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
             </div>
         </div>
@@ -95,7 +97,7 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">We've got what you need!</h2>
                     <hr class="light">
-                    <p class="text-faded">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
+                    <p class="text-faded">This microfinance site helps you to get loans with just a click, free to register online, and easy to use. No strings attached!</p>
                     <a href="#" class="btn btn-default btn-xl">Get Started!</a>
                 </div>
             </div>
@@ -115,30 +117,30 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
-                        <h3>Sturdy Templates</h3>
-                        <p class="text-muted">Our templates are updated regularly so they don't break.</p>
+                        <i class="fa fa-4x fa-money wow bounceIn text-primary"></i>
+                        <h3>AMOUNT PAID</h3>
+                        <p class="text-muted">Amount paid shows the amounts you can deposit and also receive as loan</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
-                        <h3>Ready to Ship</h3>
-                        <p class="text-muted">You can use this theme as is, or you can make changes!</p>
+                        <i class="fa fa-4x fa-shekel wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                        <h3>MODE OF PAYMENTS</h3>
+                        <p class="text-muted">You can use this theme to make the payments</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3>Up to Date</h3>
-                        <p class="text-muted">We update dependencies to keep things fresh.</p>
+                        <i class="fa fa-4x fa-star-half wow bounceIn text-primary" data-wow-delay=".2s"></i>
+                        <h3>UP TO DATE</h3>
+                        <p class="text-muted">We update fresh on transactions made.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Made with Love</h3>
-                        <p class="text-muted">You have to make your websites with love these days!</p>
+                        <i class="fa fa-4x fa-thumbs-up wow bounceIn text-primary" data-wow-delay=".3s"></i>
+                        <h3>SUGGESTIONS</h3>
+                        <p class="text-muted">To tell us new ideas and experences using the services</p>
                     </div>
                 </div>
             </div>
