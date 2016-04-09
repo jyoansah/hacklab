@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="css/animate.min.css" type="text/css">
  
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/creative.css" type="text/css">
+    <link rel="stylesheet" href="css/custom.css" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -70,7 +70,6 @@
 </head>
 
 <body id="page-top">
-
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -87,9 +86,23 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a class="page-scroll" href="login.php">Sign In/Out</a>
-                    </li>
+                    <?php if(isset($_SESSION['login_user'])){
+
+                            $user = getUserWithID($conn, isset($_SESSION['login_user']));
+
+                        ?>
+                        <li>
+                            <a class="page-scroll">Welcome, <?php echo $user->getUsername(); ?></a>
+                        </li>
+
+                    <?php } else { ?>
+
+                        <li>
+                            <a class="page-scroll" href="login.php">Sign In/Out</a>
+                        </li>
+
+                    <?php } ?>
+
                     <li>
                         <a class="page-scroll" href="auth/about.php">About</a>
                     </li>

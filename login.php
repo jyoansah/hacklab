@@ -2,6 +2,11 @@
 
     include('header.php');
 
+
+	if(isset($_SESSION['login_user'])){
+		header("location: profile.php");
+	}
+
 ?>
 	<div class="container login-container">
     	<div class="row">

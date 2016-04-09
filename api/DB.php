@@ -16,6 +16,7 @@ function userGetter($conn, $condition){
         foreach ($conn->query($sql) as $row) {
                 $user = new User($row["username"], $row["email"], $row["password"]);
                 $user->setBalance($row["balance"]);
+                $user->setId($row["id"]);
                 $users[] = $user;
         }
 
@@ -177,6 +178,18 @@ function getTransactions($conn){
         return "No transactions available";
     }
     return $transactions;
+}
+
+function getUserTransactions($conn, $user_id){
+
+    $cond = "user_id = \"$user_id\"";
+    $transactions = transactionGetter($conn, $cond);
+
+    if (empty($transactions)){
+        return null;
+    }else{
+        return $transactions;
+    }
 }
 
 function addTransaction($conn, $transaction){

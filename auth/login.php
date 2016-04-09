@@ -3,7 +3,7 @@
     header("access-control-allow-origin: *");
     include_once '../api/api.php';
     global $conn, $api;
-	
+    session_start();
 
 	if(isset($_POST['login-submit'])){
 		
@@ -27,8 +27,12 @@
 	    		if($checkPass !== $password){
     				return "Incorrect Password";
 	    		}else{
-	    			$_SESSION['user']=$user->getID();
+	    			echo "here";
+	    			$_SESSION["login_user"]= $user->getID();
+	    			echo $_SESSION["login_user"];
 	    			header("location: ../dashboard.php"); // Redirecting To Other Page
+	    			 // header("location: test.php"); // Redirecting To Other Page
+	    			 EXIT;
 	    		}
 			}
 	    }

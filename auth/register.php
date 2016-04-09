@@ -3,7 +3,8 @@
     header("access-control-allow-origin: *");
     include_once 'api/api.php';
     global $conn, $api;
-	
+	session_start();
+
 
 	if(isset($_POST['register'])){
 		

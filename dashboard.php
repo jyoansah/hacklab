@@ -1,6 +1,7 @@
 <?php
 
     include('header.php');
+    $_SESSION["login_user"]= "1";
 
 ?>
 
@@ -9,8 +10,8 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Credits</a></li>
-            <li><a href="#">Debits</a></li>
+            <li><a href="#">Make a Payment</a></li>
+            <li><a href="#">Apply for a Loan</a></li>
             <!-- <li><a href="#">Loan</a></li> -->
           </ul>
         </div>
@@ -19,49 +20,40 @@
 
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-6 amount">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+              <span class="text-muted">GH₵</span>
+              <h1><?php echo $user->getBalance();?></h1>
             </div>
-            <div class="col-xs-6 col-sm-6 amount">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+            <div class="col-xs-3 col-sm-3 dashbtn">
+              <a href="#" role="button" class="btn btn-primary">Pay Money</a>
+            </div>
+            <div class="col-xs-3 col-sm-3 dashbtn">
+              <a href="#" role="button" class="btn btn-primary">Apply for Loan</a>
             </div>
           </div>
 
-          <h2 class="sub-header">Section title</h2>
+          <h2 class="sub-header">Transactions</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>Id</th>
+                  <th>Date</th>
+                  <th>Amount</th>
                 </tr>
               </thead>
               <tbody>
+              <?php
+
+                $trans = getUserTransactions($conn, $user->getId());
+                foreach($trans as $t){
+
+              ?>
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+                  <td><?php echo $t->getId();?></td>
+                  <td><?php echo $t->getTDate();?></td>
+                  <td><?php echo $t->getAmount();?></td>
                 </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
+              <?php } ?>
               </tbody>
             </table>
           </div>
