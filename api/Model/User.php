@@ -5,18 +5,21 @@ class User {
     public $id;
     public $username;
     public $password;
+    public $balance;
 
     public function newUser($id, $username, $email, $password) {
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
+        $this->balance = 0;
     }
 
     public function __construct($username, $email, $password){
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
+        $this->balance = 0;
     }
 
 
@@ -25,7 +28,9 @@ class User {
         return  "UserId: ".$this->getId().
                 " Username: ".$this->getUsername().
                 " Email: ".$this->getEmail().
-                " Password: ".$this->getpassword()."<br>";
+                " Password: ".$this->getpassword().
+                " Balance: ".$this->getBalance().
+                "<br>";
     }
 
     /**
@@ -90,6 +95,22 @@ class User {
     public function setpassword($password)
     {
         $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setBalance($balance)
+    {
+        $this->balance = $balance;
     }
 
 

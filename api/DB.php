@@ -1,41 +1,4 @@
 <?php
-//Encode result in json format
-function sanitizeResult($result, $code = 200) {
-    if (count($result) > 0) {
-        sendResponse($code, json_encode($result));
-        return true;
-    } else {
-        sendResponse($code, json_encode("ERROR"));
-        return true;
-    }
-}
-
-function GeSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") {
-    if (PHP_VERSION < 6) {
-        $theValue_ = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-    }
-    switch ($theType) {
-        case "text":
-            $theValue_ = ($theValue != "") ? $theValue : "NULL";
-            break;
-        case "long":
-        case "int":
-            $theValue_ = ($theValue != "") ? intval($theValue) : "NULL";
-            break;
-        case "double":
-            $theValue_ = ($theValue != "") ? doubleval($theValue) : "NULL";
-            break;
-        case "date":
-            $theValue_ = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-            break;
-        case "defined":
-            $theValue_ = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-            break;
-    }
-    return $theValue_;
-}
-
-
 
 function userGetter($conn, $condition){
     try
@@ -44,15 +7,15 @@ function userGetter($conn, $condition){
         $conn = OpenConnection();
 
         if(empty($condition)) {
-            $sql = "SELECT id, username, email, password FROM Users";
+            $sql = "SELECT id, username, email, password, balance FROM Users";
         }
         else{
-            $sql = "SELECT id, username, email, password FROM Users WHERE ".$condition;
-
+            $sql = "SELECT id, username, email, password, balance FROM Users WHERE ".$condition;       
         }
 
         foreach ($conn->query($sql) as $row) {
                 $user = new User($row["username"], $row["email"], $row["password"]);
+                $user->setBalance($row["balance"]);
                 $users[] = $user;
         }
 
@@ -71,13 +34,14 @@ function userGetter($conn, $condition){
 }
 
 function getUserWithID($conn, $id){
-    $cond = "id =$id";
-    $users = userGetter($conn, $cond);
+    $cond = "id = \"$id\"";
+    $user = userGetter($conn, $cond);
 
-    if (empty($users)){
+    if (empty($user)){
         return "not found";
     }
-    return $users[0];
+
+    return $user[0];
 }
 
 function getUserWithUsername($conn, $username){
@@ -119,6 +83,47 @@ function addUser($conn, $user){
     }
 }
 
+function updateUser($conn, $user){
+
+    try{
+        $id = $user->getId();
+        $username = $user->getUsername();
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+        $balance = $user->getBalance();
+
+        $sql = "UPDATE Users
+                SET username = '$username', email = '$email', password = '$password', balance = '$balance'
+                WHERE id = \"$id\"";
+       
+        $conn = OpenConnection();
+        $conn->exec($sql);
+
+        $new_id = $conn->lastInsertId();
+
+        $conn = null;
+
+        if (empty($new_id)){
+            return null;
+        }else{
+            return $new_id;
+        }
+    }
+    catch(PDOException $e)
+    {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+}
+
+function editUserBalance($conn, $userId, $amount){
+
+    $user = getUserWithID($conn, $userId);
+    $newbal = $user->getBalance() + $amount;
+    $user->setBalance($newbal);
+    $user->setId($userId);
+    updateUser($conn, $user);
+
+}
 
 function transactionGetter($conn, $condition){
 
@@ -129,7 +134,7 @@ function transactionGetter($conn, $condition){
         if (empty($condition)) {
             $sql = "SELECT id, tdate, amount, user_id FROM Transactions";
         } else {
-            $sql = "SELECT id, tdate, amount, user_id FROM Transaction WHERE $condition";
+            $sql = "SELECT id, tdate, amount, user_id FROM Transactions WHERE $condition";
         }
 
 
@@ -154,9 +159,9 @@ function transactionGetter($conn, $condition){
     }
 }
 
-function gettransaction($conn, $id){
+function getTransactionWithID($conn, $id){
     
-    $cond = "id =".intval($id);
+    $cond = "id = \"$id\"";
     $transactions = transactionGetter($conn, $cond);
 
     if (empty($transactions)){
@@ -164,10 +169,9 @@ function gettransaction($conn, $id){
     }else{
         return $transactions[0];
     }
-
 }
 
-function gettransactions($conn){
+function getTransactions($conn){
     $transactions = transactionGetter($conn, null);
     if (empty($transactions)){
         return "No transactions available";
@@ -175,15 +179,16 @@ function gettransactions($conn){
     return $transactions;
 }
 
-function addtransaction($conn, $transaction){
+function addTransaction($conn, $transaction){
 
     $user_id = $transaction->getUserID();
     $tdate = $transaction->getTDate();
     $amount = $transaction->getAmount();
 
     try {
-        $sql = "INSERT INTO transaction (tdate, amount, user_id)
-                VALUES ('$tdate','$amount','user_id')";
+
+        $sql = "INSERT INTO transactions (tdate, amount, user_id)
+                VALUES ('$tdate','$amount','$user_id')";
         //Insert query
         $conn = OpenConnection();
         $conn->exec($sql);
@@ -195,7 +200,10 @@ function addtransaction($conn, $transaction){
         if (empty($new_id)){
             return null;
         }else{
+
+            editUserBalance($conn, $user_id, $amount);
             return $new_id;
+
         }
 
     }
@@ -205,6 +213,47 @@ function addtransaction($conn, $transaction){
     }
 
 }
+
+//Encode result in json format
+function sanitizeResult($result, $code = 200) {
+    if (count($result) > 0) {
+        sendResponse($code, json_encode($result));
+        return true;
+    } else {
+        sendResponse($code, json_encode("ERROR"));
+        return true;
+    }
+}
+
+function GeSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") {
+    if (PHP_VERSION < 6) {
+        $theValue_ = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+    }
+    switch ($theType) {
+        case "text":
+            $theValue_ = ($theValue != "") ? $theValue : "NULL";
+            break;
+        case "long":
+        case "int":
+            $theValue_ = ($theValue != "") ? intval($theValue) : "NULL";
+            break;
+        case "double":
+            $theValue_ = ($theValue != "") ? doubleval($theValue) : "NULL";
+            break;
+        case "date":
+            $theValue_ = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+            break;
+        case "defined":
+            $theValue_ = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+            break;
+    }
+    return $theValue_;
+}
+
+
+
+
+
 
 
 

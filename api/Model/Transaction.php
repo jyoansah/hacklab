@@ -23,7 +23,11 @@ class Transaction {
 
 
     function __toString(){
-        return "TransactionID: ".$this->getId()." UserID: ".$this->user_id()." Date: ".$this->getTDate()." Amount: ".$this->getLocation()."<br>";
+        return  "TransactionID: ".$this->getId().
+                " UserID: ".$this->user_id().
+                " Date: ".$this->getTDate().
+                " Amount: ".$this->getLocation().
+                "<br>";
 
     }
 

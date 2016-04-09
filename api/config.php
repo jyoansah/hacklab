@@ -90,6 +90,7 @@ function OpenConnection()
                         username varchar(50) UNIQUE NULL,
                         email varchar(50) UNIQUE NULL,
                         password varchar(50)  NOT NULL,
+                        balance Decimal(19,4)  NOT NULL,
                         PRIMARY KEY (id)
                     )";
         $conn->exec($sql);
@@ -99,9 +100,9 @@ function OpenConnection()
         $sql = "CREATE TABLE IF NOT EXISTS Transactions
                     (
                       id int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
-                      tdate TIMESTAMP  NULL,
-                      amount varchar(50)  NULL,
-                      user_id int UNSIGNED NULL,
+                      tdate TIMESTAMP NOT NULL,
+                      amount Decimal(19,4) NOT NULL,
+                      user_id int UNSIGNED NOT NULL,
                       PRIMARY KEY (id),
                       FOREIGN KEY (user_id) REFERENCES Users(id)
                     )";
